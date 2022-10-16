@@ -1,0 +1,44 @@
+.container-fluir{
+    height: 100vh;
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(#121212,#212b46);
+}
+
+.title{
+    color: #fff;
+    font-size: 5rem;
+    animation: flipTatle 1s;
+}
+
+@keyframes flipTatle {
+    from{
+        transform: rotateX(90deg);
+    }
+    to{
+        transform: rotateX(0deg);
+    }
+}
+
+.rounded-pill{
+    border: 0;
+    background-color: rgb(255, 255, 255, 0.1);
+}
+
+.rounded-pill:focus{
+    color: #fff;
+    outline-color: #198754;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    width: 40%;
+    height: 40%;
+}
