@@ -1,15 +1,39 @@
-import { FiSearch } from 'react-icons/fi'
+import { useState } from 'react';
+import { FiSearch } from 'react-icons/fi';
 import './App.css';
+import api from'./services/api';
 
 function App() {
+
+  const [input, setInput] = useState('');
+
+  async function teste(){
+    if(input === ""){
+      return alert("Por favor, Preencha o Cep!");
+    }
+
+    try{
+      const response = await api.get(`${input}/json`);
+      console.log(response.data);
+    }catch{
+      alert("Ops, erro ao buscar pelo cep: " + input);
+    }
+  }
+
   return (
     <section className='container-fluir'>
       <div>
         <h1 className='title '>Buscador CEP</h1>
 
         <div className='div-form'>
-          <input className='p-2 shadow rounded-pill' type="text" placeholder="Digite seu CEP aqui..."></input> <br/>
-          <button className="btn btn-success m-3">
+          <input className='p-2 shadow rounded-pill' 
+            type="text"
+            placeholder="Digite seu CEP aqui..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}>
+          </input> <br/>
+
+          <button onClick={teste} className="btn btn-success m-3">
             <span className=''>Buscar</span>
             <FiSearch size={20} color="#fff"/>
           </button>
