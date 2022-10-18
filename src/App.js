@@ -6,6 +6,7 @@ import api from'./services/api';
 function App() {
 
   const [input, setInput] = useState('');
+  const[cep, setCep] = useState({})
 
   async function teste(){
     if(input === ""){
@@ -15,8 +16,11 @@ function App() {
     try{
       const response = await api.get(`${input}/json`);
       console.log(response.data);
+      setCep(response.data);
+      setInput("");
     }catch{
       alert("Ops, erro ao buscar pelo cep: " + input);
+      setInput("");
     }
   }
 
@@ -40,15 +44,17 @@ function App() {
         </div>
       </div>
 
-      <main className='main m-5 shadow rounded-3'>
-        <h2 className='m-3'>
-          CEP: 69036220
-        </h2>
-        <span className='mb-3 fw-bolder' >Endereção: Rua Armando Cunha</span>
-        <span className='mb-3 fw-bolder' >Complemento: Fazenda 5</span>
-        <span className='mb-3 fw-bolder' >Bairro: Compensa</span>
-        <span className='mb-3 fw-bolder' >Localização: Manaus - AM</span>
-      </main>
+      { Object.keys(cep).length > 0 && (
+        <main className='main m-5 shadow rounded-3'>
+          <h2 className='m-3'>
+            CEP: { cep.cep }
+          </h2>
+          <span className='mb-3 fw-bolder' >Endereção: { cep.logradouro }</span>
+          <span className='mb-3 fw-bolder' >Complemento: { cep.complemento }</span>
+          <span className='mb-3 fw-bolder' >Bairro: { cep.bairro }</span>
+          <span className='mb-3 fw-bolder' >Localização: { cep.localidade } - { cep.uf }</span>
+        </main>
+      ) }
     </section>
   );
 }
